@@ -24,6 +24,7 @@ function Post({ post }: Props) {
     handleSubmit,
     formState: { errors },
   } = useForm<ICreateCommentForm>()
+  const router = useRouter()
 
   const onSubmit: SubmitHandler<ICreateCommentForm> = async (data) => {
     try {
@@ -35,6 +36,10 @@ function Post({ post }: Props) {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  if (router.isFallback) {
+    return <h1>Generating the page ....</h1>
   }
 
   return (
@@ -178,7 +183,7 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   }
 }
 
